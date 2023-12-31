@@ -13,18 +13,6 @@ The [original code](https://github.com/civisanalytics/dpwgan) runs great. Howeve
 * I have also restructured the code, which now is easier to use. 
 
 
-## Installation
-
-This package requires Python >= 3.5
-```
-pip install -r requirements.txt
-```
-For development, also install development requirements:
-```
-pip install -r dev-requirements.txt
-```
-
-
 ## Usage
 
 The main run code is in ```fully.py``` and the classes and functions are stored in ```backend.py```.
@@ -49,7 +37,7 @@ synthetic_data = gan.generate(100)
 ```
 
 `generator` and `discriminator` should be `torch.nn` modules, and
-`noise_function` should generate random data as input to the `generator`.
+`noise_function` should generate random data as input to the `generator`. Generator is implemented in a non-sequential way in another class and is initiated here.
 As a simple example:
 
 ```
@@ -62,3 +50,13 @@ discriminator = torch.nn.Sequential(
 def noise_function(n):
     return torch.randn(n, noise_dim)
 ```
+
+
+### Installation
+
+This package requires Python >= 3.5
+```
+pip install -r requirements.txt
+```
+
+
