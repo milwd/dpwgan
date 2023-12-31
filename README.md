@@ -52,7 +52,7 @@ def noise_function(n):
 ```
 
 
-### Installation
+## Installation
 
 This package requires Python >= 3.5
 ```
