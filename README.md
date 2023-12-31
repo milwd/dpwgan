@@ -1,7 +1,10 @@
 # Differentially-Private WGANs
 
 
-The original code runs great. However since the original code is released as-is, and is not actively maintained, there were several issues that has been resolved here:
+### Code for a differentially private Wasserstein GAN implemented in PyTorch
+
+
+The [original code](https://github.com/civisanalytics/dpwgan) runs great. However since it is released as-is and is not actively maintained, there were several issues that has been resolved here:
 
 * The discriminator's loss sometimes underflows which results in 'nan'. Subsequently, the generator's loss becomes 'nan' and the model stops learning. I've used a slightly altered GumbleSoftmax from [here](https://gist.github.com/GongXinyuu/3536da55639bd9bfdd5a905ebf3ab88e) which resolves the issue. 
 
@@ -13,14 +16,10 @@ The original code runs great. However since the original code is released as-is,
 ## Installation
 
 This package requires Python >= 3.5
-
 ```
 pip install -r requirements.txt
-python setup.py install
 ```
-
 For development, also install development requirements:
-
 ```
 pip install -r dev-requirements.txt
 ```
@@ -54,21 +53,12 @@ synthetic_data = gan.generate(100)
 As a simple example:
 
 ```
-# simple generator module
-generator = torch.nn.Sequential(
-    torch.nn.Linear(noise_dim, hidden_dim),
-    torch.nn.ReLU(),
-    MultiCategoryGumbelSoftmax(hidden_dim, output_dims)
-)
-
-# simple discriminator module
+generator = Generator(noise_dim, hidden_dim, output_dims)
 discriminator = torch.nn.Sequential(
     torch.nn.Linear(sum(output_dims), hidden_dim),
     torch.nn.ReLU(),
     torch.nn.Linear(hidden_dim, 1)
 )
-
-# simple noise function (input to generator module)
 def noise_function(n):
     return torch.randn(n, noise_dim)
 ```
